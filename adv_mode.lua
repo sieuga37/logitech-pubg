@@ -17,7 +17,7 @@ local m416_key = nil
 local scarl_key = nil
 local uzi_key = nil
 
-local set_off_key = 6
+local set_off_key = 3
 
 
 ---- fire key ----
