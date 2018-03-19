@@ -23,8 +23,8 @@ local set_off_key = 6
 ---- fire key ----
 
 local fire_key = "Pause"
-local mode_switch_key = "capslock"
-
+local mode_switch_key = nil
+local rightdeviation_key = "capslock"
 
 ---- ignore key ----
 ---- can use "lalt", "ralt", "alt"  "lshift", "rshift", "shift"  "lctrl", "rctrl", "ctrl"
@@ -45,8 +45,6 @@ local weapon_speed_mode = false
 local obfs_mode = true
 local interval_ratio = 0.75
 local random_seed = 1
-
-loacl ekey = 0
 
 --------------------------------------------------------------------------
 ----------------        Recoil Table        ------------------------------
@@ -193,14 +191,10 @@ function OnEvent(event, arg)
         current_weapon = "uzi"
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == scarl_key) then
         current_weapon = "scarl"
-    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 2) then
-        if (ekey == 0) then
+    elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 2 and IsKeyLockOn(rightdeviation_key)) then
             PressKey("e")
-            ekey = 1
-        elseif (eky == 1) then
+    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 2 and IsKeyLockOn(rightdeviation_key)) then
             ReleaseKey("e")
-            ekey = 0
-        end
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 1) then
         -- button 1 : Shoot
         if ((current_weapon == "none") or IsModifierPressed(ignore_key)) then
