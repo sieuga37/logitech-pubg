@@ -170,6 +170,7 @@ function OnEvent(event, arg)
     OutputLogMessage("event = %s, arg = %d\n", event, arg)
     if (event == "PROFILE_ACTIVATED") then
         EnablePrimaryMouseButtonEvents(true)
+        rightdeviation = false
     elseif event == "PROFILE_DEACTIVATED" then
         current_weapon = "none"
         shoot_duration = 0.0
@@ -191,10 +192,12 @@ function OnEvent(event, arg)
         current_weapon = "uzi"
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == scarl_key) then
         current_weapon = "scarl"
-    elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 2 and IsKeyLockOn(rightdeviation_key)) then
+    elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 2 and IsKeyLockOn(rightdeviation_key) and not rightdeviation) then
             PressKey("e")
-    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 2 and IsKeyLockOn(rightdeviation_key)) then
+            rightdeviation = true
+    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 2 and IsKeyLockOn(rightdeviation_key) and rightdeviation) then
             ReleaseKey("e")
+            rightdeviation = false
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 1) then
         -- button 1 : Shoot
         if ((current_weapon == "none") or IsModifierPressed(ignore_key)) then
