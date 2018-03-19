@@ -23,9 +23,8 @@ local set_off_key = 6
 ---- fire key ----
 
 local fire_key = "Pause"
-local mode_switch_key = nil
-local rightdeviation_key = "capslock"
-local rightdeviation = false
+local mode_switch_key = "capslock"
+local rightdeviation_key = 3
 
 ---- ignore key ----
 ---- can use "lalt", "ralt", "alt"  "lshift", "rshift", "shift"  "lctrl", "rctrl", "ctrl"
@@ -171,6 +170,7 @@ function OnEvent(event, arg)
     OutputLogMessage("event = %s, arg = %d\n", event, arg)
     if (event == "PROFILE_ACTIVATED") then
         EnablePrimaryMouseButtonEvents(true)
+        rightdeviation = false
     elseif event == "PROFILE_DEACTIVATED" then
         current_weapon = "none"
         shoot_duration = 0.0
@@ -192,10 +192,10 @@ function OnEvent(event, arg)
         current_weapon = "uzi"
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == scarl_key) then
         current_weapon = "scarl"
-    elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 2 and IsKeyLockOn(rightdeviation_key) and not rightdeviation) then
+    elseif (event == "MOUSE_BUTTON_PRESSED" and arg == rightdeviation_key and not rightdeviation) then
             PressKey("e")
             rightdeviation = true
-    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 2 and IsKeyLockOn(rightdeviation_key) and rightdeviation) then
+    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == rightdeviation_key and rightdeviation) then
             ReleaseKey("e")
             rightdeviation = false
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 1) then
