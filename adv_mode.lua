@@ -46,6 +46,8 @@ local obfs_mode = true
 local interval_ratio = 0.75
 local random_seed = 1
 
+loacl ekey = 0
+
 --------------------------------------------------------------------------
 ----------------        Recoil Table        ------------------------------
 ---------------- You can fix the value here ------------------------------
@@ -191,6 +193,14 @@ function OnEvent(event, arg)
         current_weapon = "uzi"
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == scarl_key) then
         current_weapon = "scarl"
+    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 2) then
+        if (ekey == 0) then
+            PressKey("e")
+            ekey = 1
+        elseif (eky == 1) then
+            ReleaseKey("e")
+            ekey = 0
+        end
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 1) then
         -- button 1 : Shoot
         if ((current_weapon == "none") or IsModifierPressed(ignore_key)) then
@@ -201,9 +211,9 @@ function OnEvent(event, arg)
             ReleaseKey(fire_key)
         else
             local shoot_duration = 0.0
-            if IsKeyLockOn(mode_switch_key) then
-                PressKey("e")        
-            end
+            --if IsKeyLockOn(mode_switch_key) then
+            --    PressKey("e")        
+            --end
             repeat
                 local intervals,recovery = recoil_value(current_weapon,shoot_duration)
                 PressAndReleaseKey(fire_key)
@@ -211,9 +221,9 @@ function OnEvent(event, arg)
                 Sleep(intervals)
                 shoot_duration = shoot_duration + intervals
             until not IsMouseButtonPressed(1)
-            if IsKeyLockOn(mode_switch_key) then
-                ReleaseKey("e")        
-            end            
+            --if IsKeyLockOn(mode_switch_key) then
+            --    ReleaseKey("e")        
+            --end            
         end
     elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 1) then
         ReleaseKey(fire_key)
