@@ -116,13 +116,12 @@ local scope_scale = calc_sens_scale(scope_sensitivity)
 local scope4x_scale = calc_sens_scale(scope4x_sensitivity)
 
 function recoil_mode()
-    return "basic";
---    if IsKeyLockOn(mode_switch_key) then
---        return "quadruple";
---    else
---        return "basic";
---    end
---end
+    if IsKeyLockOn(mode_switch_key) then
+        return "quadruple";
+    else
+        return "basic";
+    end
+end
 
 
 function recoil_value(_weapon,_duration)
@@ -199,6 +198,7 @@ function OnEvent(event, arg)
         else 
             rightdeviation = false
         end
+        OutputLogMessage("rightdeviation")
         OutputLogMessage(rightdeviation)
     
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 2) then
@@ -209,6 +209,9 @@ function OnEvent(event, arg)
             ReleaseKey("e")
             rightdeviation_presskey = false
         end
+        OutputLogMessage("rightdeviation_presske")
+        OutputLogMessage(rightdeviation_presske)
+        
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 1) then
         -- button 1 : Shoot
         if ((current_weapon == "none") or IsModifierPressed(ignore_key)) then
