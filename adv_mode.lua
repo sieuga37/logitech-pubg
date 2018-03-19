@@ -25,6 +25,7 @@ local set_off_key = 6
 local fire_key = "Pause"
 local mode_switch_key = nil
 local rightdeviation_key = "capslock"
+local rightdeviation = false
 
 ---- ignore key ----
 ---- can use "lalt", "ralt", "alt"  "lshift", "rshift", "shift"  "lctrl", "rctrl", "ctrl"
@@ -170,7 +171,6 @@ function OnEvent(event, arg)
     OutputLogMessage("event = %s, arg = %d\n", event, arg)
     if (event == "PROFILE_ACTIVATED") then
         EnablePrimaryMouseButtonEvents(true)
-        rightdeviation = false
     elseif event == "PROFILE_DEACTIVATED" then
         current_weapon = "none"
         shoot_duration = 0.0
@@ -208,19 +208,13 @@ function OnEvent(event, arg)
             ReleaseKey(fire_key)
         else
             local shoot_duration = 0.0
-            --if IsKeyLockOn(mode_switch_key) then
-            --    PressKey("e")        
-            --end
             repeat
                 local intervals,recovery = recoil_value(current_weapon,shoot_duration)
                 PressAndReleaseKey(fire_key)
                 MoveMouseRelative(0, recovery )
                 Sleep(intervals)
                 shoot_duration = shoot_duration + intervals
-            until not IsMouseButtonPressed(1)
-            --if IsKeyLockOn(mode_switch_key) then
-            --    ReleaseKey("e")        
-            --end            
+            until not IsMouseButtonPressed(1)       
         end
     elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 1) then
         ReleaseKey(fire_key)
