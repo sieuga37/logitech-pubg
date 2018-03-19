@@ -114,12 +114,13 @@ local scope_scale = calc_sens_scale(scope_sensitivity)
 local scope4x_scale = calc_sens_scale(scope4x_sensitivity)
 
 function recoil_mode()
-    if IsKeyLockOn(mode_switch_key) then
-        return "quadruple";
-    else
-        return "basic";
-    end
-end
+    return "basic";
+--    if IsKeyLockOn(mode_switch_key) then
+--        return "quadruple";
+--    else
+--        return "basic";
+--    end
+--end
 
 
 function recoil_value(_weapon,_duration)
@@ -200,6 +201,9 @@ function OnEvent(event, arg)
             ReleaseKey(fire_key)
         else
             local shoot_duration = 0.0
+            if IsKeyLockOn(mode_switch_key) then
+                PressKey("e")        
+            end
             repeat
                 local intervals,recovery = recoil_value(current_weapon,shoot_duration)
                 PressAndReleaseKey(fire_key)
@@ -207,6 +211,9 @@ function OnEvent(event, arg)
                 Sleep(intervals)
                 shoot_duration = shoot_duration + intervals
             until not IsMouseButtonPressed(1)
+            if IsKeyLockOn(mode_switch_key) then
+                ReleaseKey("e")        
+            end            
         end
     elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 1) then
         ReleaseKey(fire_key)
