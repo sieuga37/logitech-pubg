@@ -10,10 +10,10 @@ local current_weapon = "none"
 
 ---- key bind ----
 
-local ump9_key = nil
+local ump9_key = 8
 local akm_key = nil
-local m16a4_key = 4
-local m416_key = 5
+local m16a4_key = 5
+local m416_key = nil
 local scarl_key = nil
 local uzi_key = nil
 
@@ -24,14 +24,12 @@ local set_off_key = 6
 
 local fire_key = "Pause"
 local mode_switch_key = "capslock"
-local rightdeviation_key = 3
-local rightdeviation = false
-local rightdeviation_presskey = false
+
 
 ---- ignore key ----
 ---- can use "lalt", "ralt", "alt"  "lshift", "rshift", "shift"  "lctrl", "rctrl", "ctrl"
 
-local ignore_key = "rshift"
+local ignore_key = "lshift"
 
 --- Sensitivity in Game
 --- default is 50.0
@@ -192,26 +190,6 @@ function OnEvent(event, arg)
         current_weapon = "uzi"
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == scarl_key) then
         current_weapon = "scarl"
-    elseif (event == "MOUSE_BUTTON_PRESSED" and arg == rightdeviation_key) then
-        if (not rightdeviation) then 
-            rightdeviation = true
-        else 
-            rightdeviation = false
-        end
-        OutputLogMessage("rightdeviation")
-        OutputLogMessage(rightdeviation)
-    
-    elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 2) then
-        if (rightdeviation and not rightdeviation_presskey) then
-            PressKey("e")
-            rightdeviation_presskey = ture
-        elseif (rightdeviation and rightdeviation_presskey) then
-            ReleaseKey("e")
-            rightdeviation_presskey = false
-        end
-        OutputLogMessage("rightdeviation_presske")
-        OutputLogMessage(rightdeviation_presske)
-        
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 1) then
         -- button 1 : Shoot
         if ((current_weapon == "none") or IsModifierPressed(ignore_key)) then
@@ -228,7 +206,7 @@ function OnEvent(event, arg)
                 MoveMouseRelative(0, recovery )
                 Sleep(intervals)
                 shoot_duration = shoot_duration + intervals
-            until not IsMouseButtonPressed(1)       
+            until not IsMouseButtonPressed(1)
         end
     elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 1) then
         ReleaseKey(fire_key)
