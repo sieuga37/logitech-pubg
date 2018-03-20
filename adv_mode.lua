@@ -18,7 +18,7 @@ local scarl_key = nil
 local uzi_key = nil
 
 local set_off_key = 6
-
+rightdeviation_key = 3
 
 ---- fire key ----
 
@@ -169,6 +169,7 @@ function OnEvent(event, arg)
     OutputLogMessage("event = %s, arg = %d\n", event, arg)
     if (event == "PROFILE_ACTIVATED") then
         EnablePrimaryMouseButtonEvents(true)
+        rightdeviation = false
     elseif event == "PROFILE_DEACTIVATED" then
         current_weapon = "none"
         shoot_duration = 0.0
