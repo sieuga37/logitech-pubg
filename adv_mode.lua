@@ -198,6 +198,7 @@ function OnEvent(event, arg)
 
     if (event == "MOUSE_BUTTON_PRESSED" and arg == set_off_key) then
         current_weapon = "none"
+        ReleaseKey("e")
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == akm_key) then
         current_weapon = "akm"
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == m16a4_key) then
