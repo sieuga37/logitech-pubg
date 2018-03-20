@@ -192,8 +192,10 @@ function OnEvent(event, arg)
     end
 
     if(event == "MOUSE_BUTTON_PRESSED" and arg == rightdeviation_key) then
+        if(rightdeviation) then
+            ReleaseKey("e")
+        end
         rightdeviation = not rightdeviation
-        ReleaseKey("e")
     end
 
     if (event == "MOUSE_BUTTON_PRESSED" and arg == set_off_key) then
