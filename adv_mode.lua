@@ -225,13 +225,21 @@ function OnEvent(event, arg)
             ReleaseKey(fire_key)
         else
             local shoot_duration = 0.0
+            if (current_weapon ~= "m16a4") then
+                PressKey(fire_key)
+            end
             repeat
                 local intervals,recovery = recoil_value(current_weapon,shoot_duration)
-                PressAndReleaseKey(fire_key)
+                if (current_weapon == "m16a4") then
+                    PressAndReleaseKey(fire_key)
+                end
                 MoveMouseRelative(0, recovery )
                 Sleep(intervals)
                 shoot_duration = shoot_duration + intervals
             until not IsMouseButtonPressed(1)
+            if (current_weapon ~= "m16a4") then
+                ReleaseKey(fire_key)
+            end
         end
     elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 1) then
         ReleaseKey(fire_key)
