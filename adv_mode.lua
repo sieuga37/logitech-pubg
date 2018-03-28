@@ -11,8 +11,8 @@ local current_weapon = "none"
 ---- key bind ----
 
 local ump9_key = 3
-local akm_key = 5
-local m16a4_key = 4
+local akm_key = 4
+local m16a4_key = 5
 local m416_key = nil
 local scarl_key = nil
 local uzi_key = nil
@@ -177,14 +177,14 @@ function OnEvent(event, arg)
         ReleaseMouseButton(1)
     end
 
-    if(event == "MOUSE_BUTTON_PRESSED" and arg == 2) then
-        if(rightdeviation and current_weapon ~= "none")) then
+    if (event == "MOUSE_BUTTON_PRESSED" and arg == 2) then
+        if(rightdeviation and current_weapon ~= "none") then
             PressKey("e")
         end
     end
 
     if(event == "MOUSE_BUTTON_RELEASED" and arg == 2) then
-        if(rightdeviation and current_weapon ~= "none")) then
+        if(rightdeviation and current_weapon ~= "none") then
             ReleaseKey("e")
         end
     end
