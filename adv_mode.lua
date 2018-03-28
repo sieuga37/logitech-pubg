@@ -10,7 +10,7 @@ local current_weapon = "none"
 
 ---- key bind ----
 
-local ump9_key = nil
+local ump9_key = 3
 local akm_key = 5
 local m16a4_key = 4
 local m416_key = nil
@@ -18,7 +18,7 @@ local scarl_key = nil
 local uzi_key = nil
 
 local set_off_key = 6
-local rightdeviation_key = 3
+local rightdeviation_key = nil
 local rightdeviation = false
 
 ---- fire key ----
