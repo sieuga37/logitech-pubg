@@ -190,7 +190,7 @@ function OnEvent(event, arg)
     end
 
     if(event == "MOUSE_BUTTON_PRESSED" and arg == rightdeviation_key) then
-        rightdeviation = true
+        rightdeviation = false
     end
 
     if (event == "MOUSE_BUTTON_PRESSED" and arg == set_off_key) then
@@ -199,8 +199,10 @@ function OnEvent(event, arg)
         
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == akm_key) then
         current_weapon = "akm"
+        rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == m16a4_key) then
         current_weapon = "m16a4"
+        rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == m416_key) then
         current_weapon = "m416"
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == ump9_key) then
