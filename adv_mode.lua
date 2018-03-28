@@ -205,12 +205,16 @@ function OnEvent(event, arg)
         rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == m416_key) then
         current_weapon = "m416"
+        rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == ump9_key) then
         current_weapon = "ump9"
+        rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == uzi_key) then
         current_weapon = "uzi"
+        rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == scarl_key) then
         current_weapon = "scarl"
+        rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 1) then
         -- button 1 : Shoot
         if ((current_weapon == "none") or IsModifierPressed(ignore_key)) then
