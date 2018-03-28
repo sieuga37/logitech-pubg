@@ -179,7 +179,6 @@ function OnEvent(event, arg)
 
     if(event == "MOUSE_BUTTON_PRESSED" and arg == 2) then
         if(rightdeviation and current_weapon ~= "none")) then
-            --PressKey("Home")
             PressKey("e")
         end
     end
@@ -187,16 +186,11 @@ function OnEvent(event, arg)
     if(event == "MOUSE_BUTTON_RELEASED" and arg == 2) then
         if(rightdeviation and current_weapon ~= "none")) then
             ReleaseKey("e")
-            --ReleaseKey("Home")
         end
     end
 
     if(event == "MOUSE_BUTTON_PRESSED" and arg == rightdeviation_key) then
         rightdeviation = true
-        --if(rightdeviation) then
-        --    ReleaseKey("e")
-        --end
-        --rightdeviation = not rightdeviation
     end
 
     if (event == "MOUSE_BUTTON_PRESSED" and arg == set_off_key) then
