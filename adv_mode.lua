@@ -10,7 +10,7 @@ local current_weapon = "none"
 
 ---- key bind ----
 
-local ump9_key = 3
+local ump9_key = nil
 local akm_key = 4
 local m16a4_key = 5
 local m416_key = nil
@@ -30,7 +30,7 @@ local mode_switch_key = "capslock"
 ---- ignore key ----
 ---- can use "lalt", "ralt", "alt"  "lshift", "rshift", "shift"  "lctrl", "rctrl", "ctrl"
 
-local ignore_key = "rshift"
+local ignore_key = "lalt"
 
 --- Sensitivity in Game
 --- default is 50.0
@@ -215,6 +215,17 @@ function OnEvent(event, arg)
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == scarl_key) then
         current_weapon = "scarl"
         rightdeviation = true
+    elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 3) then
+        local shoot_duration = 0.0
+        repeat
+            local intervals,recovery = recoil_value(current_weapon,shoot_duration)
+            if (current_weapon == "m16a4") then
+                PressAndReleaseKey(fire_key)
+            end
+            MoveMouseRelative(0, recovery )
+            Sleep(intervals)
+            shoot_duration = shoot_duration + intervals
+        until not IsMouseButtonPressed(1)        
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 1) then
         -- button 1 : Shoot
         if ((current_weapon == "none") or IsModifierPressed(ignore_key)) then
