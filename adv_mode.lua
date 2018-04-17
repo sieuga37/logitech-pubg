@@ -10,8 +10,8 @@ local current_weapon = "none"
 
 ---- key bind ----
 
-local ump9_key = 8
-local akm_key = nil
+local ump9_key = nil
+local akm_key = 4
 local m16a4_key = 5
 local m416_key = nil
 local scarl_key = nil
