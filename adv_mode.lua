@@ -10,16 +10,15 @@ local current_weapon = "none"
 
 ---- key bind ----
 
-local ump9_key = nil
-local akm_key = 4
+local ump9_key = 8
+local akm_key = nil
 local m16a4_key = 5
 local m416_key = nil
 local scarl_key = nil
 local uzi_key = nil
 
 local set_off_key = 6
-local rightdeviation_key = nil
-local rightdeviation = false
+
 
 ---- fire key ----
 
@@ -30,7 +29,7 @@ local mode_switch_key = "capslock"
 ---- ignore key ----
 ---- can use "lalt", "ralt", "alt"  "lshift", "rshift", "shift"  "lctrl", "rctrl", "ctrl"
 
-local ignore_key = "lalt"
+local ignore_key = "lshift"
 
 --- Sensitivity in Game
 --- default is 50.0
@@ -177,55 +176,20 @@ function OnEvent(event, arg)
         ReleaseMouseButton(1)
     end
 
-    if (event == "MOUSE_BUTTON_PRESSED" and arg == 2) then
-        if(rightdeviation and current_weapon ~= "none") then
-            PressKey("e")
-        end
-    end
-
-    if(event == "MOUSE_BUTTON_RELEASED" and arg == 2) then
-        if(rightdeviation and current_weapon ~= "none") then
-            ReleaseKey("e")
-        end
-    end
-
-    if(event == "MOUSE_BUTTON_PRESSED" and arg == rightdeviation_key) then
-        rightdeviation = false
-    end
-
     if (event == "MOUSE_BUTTON_PRESSED" and arg == set_off_key) then
         current_weapon = "none"
-        rightdeviation = false
-        
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == akm_key) then
         current_weapon = "akm"
-        rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == m16a4_key) then
         current_weapon = "m16a4"
-        rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == m416_key) then
         current_weapon = "m416"
-        rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == ump9_key) then
         current_weapon = "ump9"
-        rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == uzi_key) then
         current_weapon = "uzi"
-        rightdeviation = true
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == scarl_key) then
         current_weapon = "scarl"
-        rightdeviation = true
-    elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 3) then
-        local shoot_duration = 0.0
-        repeat
-            local intervals,recovery = recoil_value(current_weapon,shoot_duration)
-            if (current_weapon == "m16a4") then
-                PressAndReleaseKey(fire_key)
-            end
-            MoveMouseRelative(0, recovery )
-            Sleep(intervals)
-            shoot_duration = shoot_duration + intervals
-        until not IsMouseButtonPressed(1)        
     elseif (event == "MOUSE_BUTTON_PRESSED" and arg == 1) then
         -- button 1 : Shoot
         if ((current_weapon == "none") or IsModifierPressed(ignore_key)) then
@@ -236,21 +200,13 @@ function OnEvent(event, arg)
             ReleaseKey(fire_key)
         else
             local shoot_duration = 0.0
-            if (current_weapon ~= "m16a4") then
-                PressKey(fire_key)
-            end
             repeat
                 local intervals,recovery = recoil_value(current_weapon,shoot_duration)
-                if (current_weapon == "m16a4") then
-                    PressAndReleaseKey(fire_key)
-                end
+                PressAndReleaseKey(fire_key)
                 MoveMouseRelative(0, recovery )
                 Sleep(intervals)
                 shoot_duration = shoot_duration + intervals
             until not IsMouseButtonPressed(1)
-            if (current_weapon ~= "m16a4") then
-                ReleaseKey(fire_key)
-            end
         end
     elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 1) then
         ReleaseKey(fire_key)
